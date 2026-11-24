@@ -1,0 +1,232 @@
+{
+  "description": "300 mm 절연막 패터닝 구역의 모델링 기준. 길이는 m, 속도는 m/s, 시간은 s. 업체별 예시는 서로 다른 모델이다.",
+  "researched_on": "2026-11-22",
+  "sources": {
+    "entegris_a300": "https://www.entegris.com/content/dam/product-assets/a300foups/datasheet-a300foups-A4.pdf",
+    "tdk_tas300_j1": "https://product.tdk.com/system/files/dam/doc/product/fa/fa/foup/catalog/fa_foup_tas300-j1_en.pdf",
+    "muratec_oht": "https://www.muratec.com/cfa/products/trans.php",
+    "muratec_stocker": "https://www.muratec.com/cfa/products/storage.php",
+    "mfsg_oht": "https://www.mfsg-tech.com/products/overhead-hoist-transport-oht.html",
+    "nnfc": "https://www.nnfc.re.kr/prog/eqpmnt/eng/sub01_04_10/list.do",
+    "intel_fab": "https://virtualmuseum.intel.com/fabtour/building-layout-contruction.html",
+    "brooks_m2": "https://cn.brooks.com/getmedia/2e566126-4b3b-426e-8b39-44382eb7523b/607538.pdf",
+    "tel_track": "https://www.tel.com/product/lithius.html",
+    "asml_nxt1950i": "https://www.asml.com/en/company/stories/2023/how-immersion-lithography-saved-moores-law",
+    "scanner_interface": "https://pure.tue.nl/ws/portalfiles/portal/309386975/1367382-Design_and_experimental_validation_of_a_Thermal_Conditioning_Unit_which_utilizes_air_jets_for_the_thermal_conditioning_of_silicon_wafers.pdf"
+  },
+  "published_model_specs": {
+    "carrier": {
+      "source": "entegris_a300",
+      "model": "A300 25 capacity",
+      "wafer_diameter_m": 0.3,
+      "capacity_wafers": 25,
+      "slot_pitch_m": 0.01,
+      "width_m": 0.426,
+      "depth_m": 0.355,
+      "height_m": 0.338
+    },
+    "load_port": {
+      "source": "tdk_tas300_j1",
+      "model": "TAS300 TYPE J1",
+      "full_width_m": 0.472,
+      "full_height_m": 1.386,
+      "depth_from_bolts_plane_m": 0.493,
+      "max_load_without_mapping_s": 8,
+      "load_interval": "FOUP set to robot access enable"
+    },
+    "oht_reference": {
+      "source": "mfsg_oht",
+      "straight_speed_m_s": 5.5,
+      "system_height_m": 0.895
+    },
+    "etch_strip": {
+      "source": "nnfc",
+      "equipment_id": "AEO20",
+      "etch_chambers": 3,
+      "strip_chambers": 1
+    }
+  },
+  "project_assumptions": {
+    "coordinate_system": {
+      "origin": "NW cleanroom floor",
+      "x_positive": "east",
+      "y_positive": "up",
+      "z_positive": "south",
+      "units": "m"
+    },
+    "footprint_xz_m": [
+      36,
+      18
+    ],
+    "vertical_zones_y_m": {
+      "subfab": [
+        -4,
+        0
+      ],
+      "cleanroom": [
+        0,
+        6
+      ],
+      "air_handling": [
+        6,
+        8
+      ]
+    },
+    "rail": {
+      "elevation_y_m": 4,
+      "clockwise_when_viewed_from_above": true,
+      "loop_extents_x_m": [
+        2,
+        34
+      ],
+      "loop_extents_z_m": [
+        7.5,
+        10.5
+      ],
+      "straight_speed_m_s": 2,
+      "curve_speed_m_s": 1
+    },
+    "stations": [
+      {
+        "id": "stocker",
+        "stop_xz_m": [
+          4,
+          7.5
+        ]
+      },
+      {
+        "id": "deposition",
+        "stop_xz_m": [
+          14,
+          7.5
+        ]
+      },
+      {
+        "id": "track",
+        "stop_xz_m": [
+          25,
+          7.5
+        ]
+      },
+      {
+        "id": "etch_strip",
+        "stop_xz_m": [
+          14,
+          10.5
+        ]
+      }
+    ],
+    "reserved_zones": [
+      {
+        "id": "stocker",
+        "nw_corner_xz_m": [
+          2,
+          2
+        ],
+        "reserved_width_depth_m": [
+          5,
+          5
+        ]
+      },
+      {
+        "id": "deposition",
+        "nw_corner_xz_m": [
+          9,
+          2
+        ],
+        "reserved_width_depth_m": [
+          9,
+          5
+        ]
+      },
+      {
+        "id": "track",
+        "nw_corner_xz_m": [
+          21,
+          2
+        ],
+        "reserved_width_depth_m": [
+          7,
+          5
+        ]
+      },
+      {
+        "id": "scanner",
+        "nw_corner_xz_m": [
+          28,
+          2
+        ],
+        "reserved_width_depth_m": [
+          6,
+          5
+        ]
+      },
+      {
+        "id": "etch_strip",
+        "nw_corner_xz_m": [
+          9,
+          11
+        ],
+        "reserved_width_depth_m": [
+          10,
+          5
+        ]
+      },
+      {
+        "id": "future_metrology",
+        "nw_corner_xz_m": [
+          23,
+          11
+        ],
+        "reserved_width_depth_m": [
+          8,
+          5
+        ]
+      }
+    ],
+    "fleet": {
+      "oht_count": 1,
+      "carrier_count": 2
+    },
+    "baseline_carrier_route": [
+      "stocker",
+      "deposition",
+      "track",
+      "etch_strip",
+      "stocker"
+    ],
+    "wafer_steps": [
+      {
+        "station": "deposition",
+        "step": "deposit"
+      },
+      {
+        "station": "track",
+        "step": "coat"
+      },
+      {
+        "station": "scanner",
+        "step": "expose"
+      },
+      {
+        "station": "track",
+        "step": "develop"
+      },
+      {
+        "station": "etch_strip",
+        "step": "etch"
+      },
+      {
+        "station": "etch_strip",
+        "step": "strip"
+      }
+    ],
+    "note": "장비 상자는 설치 예약 영역이다. 웨이퍼 실습 단계에서 베이크 등 일부 내부 동작은 묶어 표현한다."
+  },
+  "pending_field_verification": [
+    "실제 대상 장비의 외곽과 정비 여유",
+    "도킹 기준면과 상부 플랜지 파지점의 현장 보정",
+    "실제 레일 곡률과 승강 거리",
+    "설치된 챔버의 방향과 내부 로봇 궤적"
+  ]
+}

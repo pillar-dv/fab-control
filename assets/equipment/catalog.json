@@ -1,0 +1,1497 @@
+{
+  "units": "m",
+  "dimensionOrder": [
+    "width",
+    "depth",
+    "height"
+  ],
+  "axes": "Y up; front camera +Z, right +X, rear -Z",
+  "categories": [
+    {
+      "id": "handling",
+      "name": "반입·보관·운송·장비 인계",
+      "description": "FOUP를 보관하고 천장 레일 또는 장비 로드포트에서 인계한다. 내부 이송 로봇은 웨이퍼를 한 장씩 옮긴다."
+    },
+    {
+      "id": "cleaning",
+      "name": "세정·건조",
+      "description": "입고 및 막 형성 전에 표면을 준비하고, 식각·CMP 이후에도 필요에 따라 다시 세정한다."
+    },
+    {
+      "id": "deposition",
+      "name": "박막 형성",
+      "description": "절연막과 소자막을 형성한다. PECVD와 ALD는 막을 만드는 방식과 장비 구조가 다르다."
+    },
+    {
+      "id": "coat-develop",
+      "name": "감광막 도포·현상",
+      "description": "트랙에서 도포·베이크한 뒤 노광기로 보낸다. 노광 후 같은 계열의 트랙으로 돌아와 베이크·현상한다."
+    },
+    {
+      "id": "lithography",
+      "name": "정렬·노광",
+      "description": "마스크의 패턴을 감광막에 전사한다. 레이어 요구에 따라 EUV·ArF 액침·KrF를 선택한다."
+    },
+    {
+      "id": "etch",
+      "name": "패턴 식각",
+      "description": "현상된 마스크의 개구부를 통해 도전막이나 절연막에 패턴을 옮긴다. 층과 재료에 따라 장비를 고른다."
+    },
+    {
+      "id": "implant",
+      "name": "이온 주입",
+      "description": "일부 소자 단계에서 선택된 영역에 이온을 주입한다. 주입 마스크의 제거 순서는 레이어에 따라 달라진다."
+    },
+    {
+      "id": "strip",
+      "name": "감광막·잔류물 제거",
+      "description": "식각이나 주입 뒤 마스크 역할을 마친 감광막을 제거한다. 잔류물과 후세정 요구는 공정마다 다르다."
+    },
+    {
+      "id": "thermal",
+      "name": "열처리",
+      "description": "주입 후 도펀트 활성화 등 열처리가 필요한 단계에 들어간다. 배치 퍼니스와 낱장 RTP를 구분한다."
+    },
+    {
+      "id": "metallization",
+      "name": "금속화·배선 충전",
+      "description": "필요한 장벽·시드를 형성하고 도체를 채운다. 구리 도금과 텅스텐 증착은 제품별로 갈라지는 경로다."
+    },
+    {
+      "id": "cmp",
+      "name": "평탄화·후세정",
+      "description": "연마와 세정으로 표면을 평탄하게 만들어 후속 층 형성을 준비한다."
+    },
+    {
+      "id": "inspection",
+      "name": "공정 중 검사·계측",
+      "description": "주요 단계 뒤에 반복한다. 결함 검사와 치수·형상 계측은 다른 결과를 돌려준다."
+    },
+    {
+      "id": "wafer-test",
+      "name": "웨이퍼 프로브 검사",
+      "description": "프로브 카드와 테스터가 웨이퍼 위 각 다이에 접촉해 전기적 판정과 웨이퍼 맵을 만든다."
+    },
+    {
+      "id": "bonding",
+      "name": "웨이퍼 접합",
+      "description": "웨이퍼 단위로 결합하는 3D 통합 경로에 사용한다. 제품에 따라 전공정 중간에도 들어갈 수 있다."
+    },
+    {
+      "id": "dicing",
+      "name": "웨이퍼 절단",
+      "description": "가공이 끝난 웨이퍼에서 다이를 분리한다. 일부 적층 공정은 절단 전후 순서가 달라진다."
+    },
+    {
+      "id": "assembly",
+      "name": "다이 실장·패키징",
+      "description": "선별한 다이를 기판 또는 웨이퍼에 실장·접합한다. 접합 방식은 패키지 구조에 따라 달라진다."
+    },
+    {
+      "id": "final-test",
+      "name": "패키지 최종 검사",
+      "description": "전기·기능 시험으로 완성품을 선별한다. 테스터는 프로버 또는 패키지 핸들러와 조합할 수 있다."
+    }
+  ],
+  "interfaceChecks": {
+    "doorSamples": 101,
+    "landings": [
+      "stocker",
+      "deposition",
+      "track",
+      "etch_strip"
+    ],
+    "robotHandoffs": [
+      "deposition/efem",
+      "deposition/vacuum",
+      "track/trackRobot",
+      "etch_strip/efem",
+      "etch_strip/vacuum"
+    ],
+    "forkPoseSamples": 219,
+    "maxForkErrorM": 0
+  },
+  "equipment": [
+    {
+      "id": "foup",
+      "name": "웨이퍼 운반 용기",
+      "categoryId": "handling",
+      "category": "반입·보관·운송·장비 인계",
+      "manufacturer": "Entegris",
+      "modelName": "A300 25장형",
+      "referenceModel": "Entegris · A300 25장형",
+      "description": "웨이퍼를 슬롯에 수평으로 보관하고, 장비 도킹 후 앞문을 엽니다.",
+      "mode": "simulation",
+      "published": "제조사 사양 폭 426 × 깊이 355 × 높이 338 mm, 25장형",
+      "dimensionsM": [
+        0.426,
+        0.355,
+        0.338
+      ],
+      "dimensionBasis": "A300 외곽 426 × 355 × 338 mm, 25슬롯, 피치 10 mm. 문 이동 거리는 모델 가정.",
+      "sources": [
+        "https://www.entegris.com/content/dam/product-assets/a300foups/datasheet-a300foups-A4.pdf"
+      ],
+      "orthographicHeightM": 0.7525591540149197,
+      "model": "handling/entegris-a300/models/foup.glb",
+      "images": {
+        "front": "handling/entegris-a300/images/front.png",
+        "side": "handling/entegris-a300/images/side.png",
+        "rear": "handling/entegris-a300/images/rear.png",
+        "iso": "handling/entegris-a300/images/iso.png"
+      },
+      "animations": [
+        {
+          "name": "foup_cycle",
+          "seconds": 19.375
+        }
+      ]
+    },
+    {
+      "id": "load_port",
+      "name": "로드포트",
+      "categoryId": "handling",
+      "category": "반입·보관·운송·장비 인계",
+      "manufacturer": "TDK",
+      "modelName": "TAS300 TYPE J1",
+      "referenceModel": "TDK · TAS300 TYPE J1",
+      "description": "운반 용기를 받침에 정렬하고 장비 내부 로봇이 접근할 수 있게 합니다.",
+      "mode": "simulation",
+      "published": "제조사 사양 폭 472 mm, 돌출 깊이 493 mm, 높이 1,386 mm",
+      "dimensionsM": [
+        0.472,
+        0.493,
+        1.386
+      ],
+      "dimensionBasis": "TAS300 J1 폭 472 mm, 높이 1,386 mm, 장착 기준면에서 돌출 493 mm. 받침면 높이 900 mm는 모델 가정.",
+      "sources": [
+        "https://product.tdk.com/system/files/dam/doc/product/fa/fa/foup/catalog/fa_foup_tas300-j1_en.pdf"
+      ],
+      "orthographicHeightM": 2.1440868857141866,
+      "model": "handling/tdk-tas300-j1/models/load_port.glb",
+      "images": {
+        "front": "handling/tdk-tas300-j1/images/front.png",
+        "side": "handling/tdk-tas300-j1/images/side.png",
+        "rear": "handling/tdk-tas300-j1/images/rear.png",
+        "iso": "handling/tdk-tas300-j1/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "stocker",
+      "name": "캐리어 스토커",
+      "categoryId": "handling",
+      "category": "반입·보관·운송·장비 인계",
+      "manufacturer": "Muratec",
+      "modelName": "Carrier Stocker",
+      "referenceModel": "Muratec · Carrier Stocker",
+      "description": "운반 용기를 랙에 보관하고, 목적 포트가 비면 출고 스테이션으로 꺼냅니다.",
+      "mode": "simulation",
+      "published": "공개 장비 역할과 시스템 구조를 참조",
+      "dimensionsM": [
+        4.26,
+        5.155,
+        3.345
+      ],
+      "dimensionBasis": "보관 랙과 OHT 인계대를 구분. 단수, 패널과 외곽은 모델 가정.",
+      "sources": [
+        "https://www.muratec.com/cfa/products/storage.php"
+      ],
+      "orthographicHeightM": 8.244364105316606,
+      "model": "handling/muratec-carrier-stocker/models/stocker.glb",
+      "images": {
+        "front": "handling/muratec-carrier-stocker/images/front.png",
+        "side": "handling/muratec-carrier-stocker/images/side.png",
+        "rear": "handling/muratec-carrier-stocker/images/rear.png",
+        "iso": "handling/muratec-carrier-stocker/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "oht",
+      "name": "천장 운송차",
+      "categoryId": "handling",
+      "category": "반입·보관·운송·장비 인계",
+      "manufacturer": "Muratec",
+      "modelName": "OHT · SRC350 계열 참조",
+      "referenceModel": "Muratec · OHT · SRC350 계열 참조",
+      "description": "레일 위에서 정차해 FOUP의 상부 플랜지를 잡고 들어 올립니다. 장비 사이에서는 닫힌 용기를 운반합니다.",
+      "mode": "simulation",
+      "published": "공개 장비 역할과 시스템 구조를 참조",
+      "dimensionsM": [
+        0.95,
+        0.6625,
+        0.83
+      ],
+      "dimensionBasis": "벨트 승강과 플랜지 파지는 Muratec 사례. 차체 외곽과 승강 스트로크는 모델 가정.",
+      "sources": [
+        "https://www.muratec.com/cfa/products/trans.php",
+        "https://www.mfsg-tech.com/products/overhead-hoist-transport-oht.html"
+      ],
+      "orthographicHeightM": 1.7120753189628999,
+      "model": "handling/muratec-src350-oht/models/oht.glb",
+      "images": {
+        "front": "handling/muratec-src350-oht/images/front.png",
+        "side": "handling/muratec-src350-oht/images/side.png",
+        "rear": "handling/muratec-src350-oht/images/rear.png",
+        "iso": "handling/muratec-src350-oht/images/iso.png"
+      },
+      "animations": [
+        {
+          "name": "oht_cycle",
+          "seconds": 3.625
+        }
+      ]
+    },
+    {
+      "id": "efem_robot",
+      "name": "전면 이송 로봇",
+      "categoryId": "handling",
+      "category": "반입·보관·운송·장비 인계",
+      "manufacturer": "Brooks Automation",
+      "modelName": "Marathon 2 EFEM 이송 로봇 참조",
+      "referenceModel": "Brooks Automation · Marathon 2 EFEM 이송 로봇 참조",
+      "description": "대기압 구역에서 웨이퍼 한 장을 꺼내 다음 모듈에 전달합니다.",
+      "mode": "simulation",
+      "published": "공개 장비 역할과 시스템 구조를 참조",
+      "dimensionsM": [
+        0.52104,
+        0.50731,
+        0.4675
+      ],
+      "dimensionBasis": "대기·진공·트랙 이송 역할을 참조. 팔 길이, 베이스와 궤적은 모델 가정.",
+      "sources": [
+        "https://cn.brooks.com/getmedia/2e566126-4b3b-426e-8b39-44382eb7523b/607538.pdf"
+      ],
+      "orthographicHeightM": 1.0227204362643603,
+      "model": "handling/brooks-marathon-2-efem/models/efem_robot.glb",
+      "images": {
+        "front": "handling/brooks-marathon-2-efem/images/front.png",
+        "side": "handling/brooks-marathon-2-efem/images/side.png",
+        "rear": "handling/brooks-marathon-2-efem/images/rear.png",
+        "iso": "handling/brooks-marathon-2-efem/images/iso.png"
+      },
+      "animations": [
+        {
+          "name": "efem_robot_cycle",
+          "seconds": 2.625
+        }
+      ]
+    },
+    {
+      "id": "vacuum_robot",
+      "name": "진공 이송 로봇",
+      "categoryId": "handling",
+      "category": "반입·보관·운송·장비 인계",
+      "manufacturer": "Brooks Automation",
+      "modelName": "Marathon 2 진공 이송 로봇 참조",
+      "referenceModel": "Brooks Automation · Marathon 2 진공 이송 로봇 참조",
+      "description": "로드록과 진공 공정 챔버 사이에서 웨이퍼를 인계합니다.",
+      "mode": "simulation",
+      "published": "공개 장비 역할과 시스템 구조를 참조",
+      "dimensionsM": [
+        0.58604,
+        0.57231,
+        0.4725
+      ],
+      "dimensionBasis": "대기·진공·트랙 이송 역할을 참조. 팔 길이, 베이스와 궤적은 모델 가정.",
+      "sources": [
+        "https://cn.brooks.com/getmedia/2e566126-4b3b-426e-8b39-44382eb7523b/607538.pdf"
+      ],
+      "orthographicHeightM": 1.0845452952299452,
+      "model": "handling/brooks-marathon-2-vacuum/models/vacuum_robot.glb",
+      "images": {
+        "front": "handling/brooks-marathon-2-vacuum/images/front.png",
+        "side": "handling/brooks-marathon-2-vacuum/images/side.png",
+        "rear": "handling/brooks-marathon-2-vacuum/images/rear.png",
+        "iso": "handling/brooks-marathon-2-vacuum/images/iso.png"
+      },
+      "animations": [
+        {
+          "name": "vacuum_robot_cycle",
+          "seconds": 2.25
+        }
+      ]
+    },
+    {
+      "id": "track_robot",
+      "name": "트랙 이송 로봇",
+      "categoryId": "handling",
+      "category": "반입·보관·운송·장비 인계",
+      "manufacturer": "Tokyo Electron",
+      "modelName": "LITHIUS 내부 이송 개념 모델",
+      "referenceModel": "Tokyo Electron · LITHIUS 내부 이송 개념 모델",
+      "description": "트랙 내부와 노광기 사이에서 웨이퍼를 한 장씩 전달합니다.",
+      "mode": "simulation",
+      "published": "공개 장비 역할과 시스템 구조를 참조",
+      "dimensionsM": [
+        0.58604,
+        0.82,
+        0.4675
+      ],
+      "dimensionBasis": "대기·진공·트랙 이송 역할을 참조. 팔 길이, 베이스와 궤적은 모델 가정.",
+      "sources": [
+        "https://www.tel.com/product/lithius.html",
+        "https://pure.tue.nl/ws/portalfiles/portal/309386975/1367382-Design_and_experimental_validation_of_a_Thermal_Conditioning_Unit_which_utilizes_air_jets_for_the_thermal_conditioning_of_silicon_wafers.pdf"
+      ],
+      "orthographicHeightM": 1.19597173538277,
+      "model": "handling/tel-lithius-track-robot/models/track_robot.glb",
+      "images": {
+        "front": "handling/tel-lithius-track-robot/images/front.png",
+        "side": "handling/tel-lithius-track-robot/images/side.png",
+        "rear": "handling/tel-lithius-track-robot/images/rear.png",
+        "iso": "handling/tel-lithius-track-robot/images/iso.png"
+      },
+      "animations": [
+        {
+          "name": "track_robot_cycle",
+          "seconds": 2.5
+        }
+      ]
+    },
+    {
+      "id": "deposition",
+      "name": "절연막 증착기",
+      "categoryId": "deposition",
+      "category": "박막 형성",
+      "manufacturer": "Applied Materials",
+      "modelName": "Producer-SE",
+      "referenceModel": "Applied Materials · Producer-SE",
+      "description": "전면 로봇이 웨이퍼를 로드록에 넘기면 진공 로봇이 챔버로 옮깁니다. 웨이퍼 표면에 얇은 절연막을 형성합니다.",
+      "mode": "simulation",
+      "published": "공개 장비 역할과 시스템 구조를 참조",
+      "dimensionsM": [
+        8.495,
+        5.5765,
+        3.0225
+      ],
+      "dimensionBasis": "Producer-SE의 PECVD 역할과 EFEM–로드록–진공 구성을 참조. 패널·조작면과 외곽은 모델 가정.",
+      "sources": [
+        "https://www.nnfc.re.kr/prog/eqpmnt/eng/sub01_04_10/list.do",
+        "https://cn.brooks.com/getmedia/2e566126-4b3b-426e-8b39-44382eb7523b/607538.pdf"
+      ],
+      "orthographicHeightM": 9.651447622146236,
+      "model": "deposition/applied-materials-producer-se/models/deposition.glb",
+      "images": {
+        "front": "deposition/applied-materials-producer-se/images/front.png",
+        "side": "deposition/applied-materials-producer-se/images/side.png",
+        "rear": "deposition/applied-materials-producer-se/images/rear.png",
+        "iso": "deposition/applied-materials-producer-se/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "track",
+      "name": "포토 트랙",
+      "categoryId": "coat-develop",
+      "category": "감광막 도포·현상",
+      "manufacturer": "Tokyo Electron",
+      "modelName": "CLEAN TRACK LITHIUS",
+      "referenceModel": "Tokyo Electron · CLEAN TRACK LITHIUS",
+      "description": "감광막을 도포한 웨이퍼를 노광기에 보냅니다. 돌아온 웨이퍼를 현상해 아래 막을 드러냅니다.",
+      "mode": "simulation",
+      "published": "공개 장비 역할과 시스템 구조를 참조",
+      "dimensionsM": [
+        6.2,
+        5.3315,
+        3.1625
+      ],
+      "dimensionBasis": "도포·현상 모듈과 노광기 인계를 표현. 모듈 배치와 외곽은 모델 가정.",
+      "sources": [
+        "https://www.tel.com/product/lithius.html",
+        "https://pure.tue.nl/ws/portalfiles/portal/309386975/1367382-Design_and_experimental_validation_of_a_Thermal_Conditioning_Unit_which_utilizes_air_jets_for_the_thermal_conditioning_of_silicon_wafers.pdf"
+      ],
+      "orthographicHeightM": 8.837644610618604,
+      "model": "coat-develop/tel-clean-track-lithius/models/track.glb",
+      "images": {
+        "front": "coat-develop/tel-clean-track-lithius/images/front.png",
+        "side": "coat-develop/tel-clean-track-lithius/images/side.png",
+        "rear": "coat-develop/tel-clean-track-lithius/images/rear.png",
+        "iso": "coat-develop/tel-clean-track-lithius/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "scanner",
+      "name": "노광 스캐너",
+      "categoryId": "lithography",
+      "category": "정렬·노광",
+      "manufacturer": "ASML",
+      "modelName": "TWINSCAN NXT:1950i",
+      "referenceModel": "ASML · TWINSCAN NXT:1950i",
+      "description": "웨이퍼 스테이지 위 감광막에 패턴을 투영합니다. 노광 직후에는 막의 두께가 유지됩니다.",
+      "mode": "simulation",
+      "published": "공개 장비 역할과 시스템 구조를 참조",
+      "dimensionsM": [
+        6.03,
+        4.6875,
+        3.46
+      ],
+      "dimensionBasis": "액침 스캐너와 트랙 사이 웨이퍼 인계를 표현. 브리지 방향과 외곽은 모델 가정.",
+      "sources": [
+        "https://www.asml.com/en/company/stories/2023/how-immersion-lithography-saved-moores-law",
+        "https://pure.tue.nl/ws/portalfiles/portal/309386975/1367382-Design_and_experimental_validation_of_a_Thermal_Conditioning_Unit_which_utilizes_air_jets_for_the_thermal_conditioning_of_silicon_wafers.pdf"
+      ],
+      "orthographicHeightM": 8.838543107779493,
+      "model": "lithography/asml-twinscan-nxt-1950i/models/scanner.glb",
+      "images": {
+        "front": "lithography/asml-twinscan-nxt-1950i/images/front.png",
+        "side": "lithography/asml-twinscan-nxt-1950i/images/side.png",
+        "rear": "lithography/asml-twinscan-nxt-1950i/images/rear.png",
+        "iso": "lithography/asml-twinscan-nxt-1950i/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "etch_strip",
+      "name": "식각·제거 클러스터",
+      "categoryId": "etch",
+      "category": "패턴 식각",
+      "manufacturer": "Lam Research",
+      "modelName": "FLEX45 / STRIP45 · NNFC AEO20",
+      "referenceModel": "Lam Research · FLEX45 / STRIP45 · NNFC AEO20",
+      "description": "세 식각실 중 한 곳에서 드러난 막을 깎고, 제거실에서 남은 감광막을 벗겨냅니다.",
+      "mode": "simulation",
+      "published": "NNFC AEO20 식각 3실·제거 1실",
+      "dimensionsM": [
+        9.495,
+        5.5765,
+        3.0225
+      ],
+      "dimensionBasis": "AEO20의 식각 챔버 3개와 제거 챔버 1개를 기준으로 구성. 패널·챔버 배치와 외곽은 모델 가정.",
+      "sources": [
+        "https://www.nnfc.re.kr/prog/eqpmnt/eng/sub01_04_10/list.do",
+        "https://cn.brooks.com/getmedia/2e566126-4b3b-426e-8b39-44382eb7523b/607538.pdf"
+      ],
+      "orthographicHeightM": 10.03149601141355,
+      "model": "etch/lam-flex45-strip45-aeo20/models/etch_strip.glb",
+      "images": {
+        "front": "etch/lam-flex45-strip45-aeo20/images/front.png",
+        "side": "etch/lam-flex45-strip45-aeo20/images/side.png",
+        "rear": "etch/lam-flex45-strip45-aeo20/images/rear.png",
+        "iso": "etch/lam-flex45-strip45-aeo20/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "daifuku-cleanway-oht",
+      "name": "천장 운송차",
+      "categoryId": "handling",
+      "category": "반입·보관·운송·장비 인계",
+      "manufacturer": "Daifuku",
+      "modelName": "Cleanway",
+      "referenceModel": "Daifuku · Cleanway",
+      "description": "천장 레일을 달리며 캐리어를 승강해 장비 포트와 보관 설비 사이로 전달한다.",
+      "mode": "reference",
+      "published": "클린룸용 천장 운송 시스템",
+      "dimensionsM": [
+        1.05,
+        0.6734,
+        1.105
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.daifuku.com/ir/assets/profile2026_en.pdf"
+      ],
+      "orthographicHeightM": 2.098611370184552,
+      "model": "handling/daifuku-cleanway-oht/models/daifuku-cleanway-oht.glb",
+      "images": {
+        "front": "handling/daifuku-cleanway-oht/images/front.png",
+        "side": "handling/daifuku-cleanway-oht/images/side.png",
+        "rear": "handling/daifuku-cleanway-oht/images/rear.png",
+        "iso": "handling/daifuku-cleanway-oht/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "daifuku-clean-stocker",
+      "name": "클린룸 스토커",
+      "categoryId": "handling",
+      "category": "반입·보관·운송·장비 인계",
+      "manufacturer": "Daifuku",
+      "modelName": "Clean Stocker",
+      "referenceModel": "Daifuku · Clean Stocker",
+      "description": "공정 사이 재공품을 보관하는 자동 창고다. 랙과 이송 승강부, 인계대를 보여 준다.",
+      "mode": "reference",
+      "published": "클린룸 재공품 보관 시스템",
+      "dimensionsM": [
+        4.356,
+        3.038,
+        3.514
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.daifuku.com/ir/assets/profile2026_en.pdf"
+      ],
+      "orthographicHeightM": 7.48615175625794,
+      "model": "handling/daifuku-clean-stocker/models/daifuku-clean-stocker.glb",
+      "images": {
+        "front": "handling/daifuku-clean-stocker/images/front.png",
+        "side": "handling/daifuku-clean-stocker/images/side.png",
+        "rear": "handling/daifuku-clean-stocker/images/rear.png",
+        "iso": "handling/daifuku-clean-stocker/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "acm-ultra-c-saps",
+      "name": "메가소닉 세정기",
+      "categoryId": "cleaning",
+      "category": "세정·건조",
+      "manufacturer": "ACM Research",
+      "modelName": "Ultra C SAPS",
+      "referenceModel": "ACM Research · Ultra C SAPS",
+      "description": "웨이퍼와 트랜스듀서 사이에 교번 위상의 메가소닉 에너지를 전달해 미립자를 제거한다.",
+      "mode": "reference",
+      "published": "낱장 세정 · SAPS 방식",
+      "dimensionsM": [
+        4.6667,
+        3.761,
+        2.824
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.acmr.com/tools-and-processes/wet-processing/ultra-c-saps-cleaning/"
+      ],
+      "orthographicHeightM": 7.086197601740464,
+      "model": "cleaning/acm-ultra-c-saps/models/acm-ultra-c-saps.glb",
+      "images": {
+        "front": "cleaning/acm-ultra-c-saps/images/front.png",
+        "side": "cleaning/acm-ultra-c-saps/images/side.png",
+        "rear": "cleaning/acm-ultra-c-saps/images/rear.png",
+        "iso": "cleaning/acm-ultra-c-saps/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "screen-su-3400",
+      "name": "낱장 세정기",
+      "categoryId": "cleaning",
+      "category": "세정·건조",
+      "manufacturer": "SCREEN",
+      "modelName": "SU-3400",
+      "referenceModel": "SCREEN · SU-3400",
+      "description": "세정 챔버를 수직으로 쌓아 설치 면적을 줄인 낱장 세정기다. 4열에 6층으로 나뉜 공정 공간을 보여 준다.",
+      "mode": "reference",
+      "published": "300mm 낱장 세정 · 6층 적층 구조와 총 24개 챔버",
+      "dimensionsM": [
+        5.21175,
+        3.71175,
+        3.082
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://hdjp-corporateweb-files.screen.co.jp/1417/2465/8933/NR221207E.pdf"
+      ],
+      "orthographicHeightM": 7.592073800364745,
+      "model": "cleaning/screen-su-3400/models/screen-su-3400.glb",
+      "images": {
+        "front": "cleaning/screen-su-3400/images/front.png",
+        "side": "cleaning/screen-su-3400/images/side.png",
+        "rear": "cleaning/screen-su-3400/images/rear.png",
+        "iso": "cleaning/screen-su-3400/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "tel-cellesta-i",
+      "name": "낱장 표면 세정 시스템",
+      "categoryId": "cleaning",
+      "category": "세정·건조",
+      "manufacturer": "Tokyo Electron",
+      "modelName": "CELLESTA-i",
+      "referenceModel": "Tokyo Electron · CELLESTA-i",
+      "description": "웨이퍼 표면을 세정하고 건조하는 공정에 사용한다.",
+      "mode": "reference",
+      "published": "CELLESTA 계열 300mm 낱장 세정",
+      "dimensionsM": [
+        4.81535,
+        3.367,
+        2.9014
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.tel.com/product/cellesta.html"
+      ],
+      "orthographicHeightM": 7.052156228996417,
+      "model": "cleaning/tel-cellesta-i/models/tel-cellesta-i.glb",
+      "images": {
+        "front": "cleaning/tel-cellesta-i/images/front.png",
+        "side": "cleaning/tel-cellesta-i/images/side.png",
+        "rear": "cleaning/tel-cellesta-i/images/rear.png",
+        "iso": "cleaning/tel-cellesta-i/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "asm-pulsar-xp",
+      "name": "원자층 증착 시스템",
+      "categoryId": "deposition",
+      "category": "박막 형성",
+      "manufacturer": "ASM",
+      "modelName": "Pulsar XP",
+      "referenceModel": "ASM · Pulsar XP",
+      "description": "고유전율 박막을 원자층 증착 방식으로 형성한다. 클러스터의 이송 허브와 ALD 모듈을 표현했다.",
+      "mode": "reference",
+      "published": "300mm XP4 · 최대 4개 Pulsar 모듈 구성",
+      "dimensionsM": [
+        5.148,
+        4.962,
+        2.941
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.asm.com/our-technology-products/ald/xp4-pulsar"
+      ],
+      "orthographicHeightM": 7.9857436355069975,
+      "model": "deposition/asm-pulsar-xp/models/asm-pulsar-xp.glb",
+      "images": {
+        "front": "deposition/asm-pulsar-xp/images/front.png",
+        "side": "deposition/asm-pulsar-xp/images/side.png",
+        "rear": "deposition/asm-pulsar-xp/images/rear.png",
+        "iso": "deposition/asm-pulsar-xp/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "lam-striker",
+      "name": "박막 ALD 시스템",
+      "categoryId": "deposition",
+      "category": "박막 형성",
+      "manufacturer": "Lam Research",
+      "modelName": "Striker",
+      "referenceModel": "Lam Research · Striker",
+      "description": "원자층 증착으로 절연막을 형성한다. 로드록, 이송부, 공정 모듈을 구분해 표현했다.",
+      "mode": "reference",
+      "published": "ALD 제품군",
+      "dimensionsM": [
+        5.643,
+        4.4175,
+        2.983
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.lamresearch.com/products/our-processes/deposition/"
+      ],
+      "orthographicHeightM": 7.967636522345273,
+      "model": "deposition/lam-striker/models/lam-striker.glb",
+      "images": {
+        "front": "deposition/lam-striker/images/front.png",
+        "side": "deposition/lam-striker/images/side.png",
+        "rear": "deposition/lam-striker/images/rear.png",
+        "iso": "deposition/lam-striker/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "screen-dt-3000",
+      "name": "도포·현상 트랙",
+      "categoryId": "coat-develop",
+      "category": "감광막 도포·현상",
+      "manufacturer": "SCREEN",
+      "modelName": "DT-3000",
+      "referenceModel": "SCREEN · DT-3000",
+      "description": "감광막 도포·베이크·현상 모듈을 연결한다. 웨이퍼를 노광기에 보냈다가 다시 받는 트랙으로 표현했다.",
+      "mode": "reference",
+      "published": "300mm 트랙 · 액침 ArF 및 EUV 응용",
+      "dimensionsM": [
+        5.955,
+        3.41625,
+        2.9702
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://images-spe.screen.co.jp/8817/0496/0650/SPE_GeneralCatalog_Digital_202401.pdf"
+      ],
+      "orthographicHeightM": 7.594575785594087,
+      "model": "coat-develop/screen-dt-3000/models/screen-dt-3000.glb",
+      "images": {
+        "front": "coat-develop/screen-dt-3000/images/front.png",
+        "side": "coat-develop/screen-dt-3000/images/side.png",
+        "rear": "coat-develop/screen-dt-3000/images/rear.png",
+        "iso": "coat-develop/screen-dt-3000/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "suss-acs300-gen2",
+      "name": "자동 도포·현상기",
+      "categoryId": "coat-develop",
+      "category": "감광막 도포·현상",
+      "manufacturer": "SUSS",
+      "modelName": "ACS300 Gen2",
+      "referenceModel": "SUSS · ACS300 Gen2",
+      "description": "감광막을 도포하고 현상한다. 3D 통합과 웨이퍼 레벨 패키징의 감광막 처리에도 사용한다.",
+      "mode": "reference",
+      "published": "200·300mm 자동 도포·현상",
+      "dimensionsM": [
+        4.6667,
+        3.41625,
+        2.7724
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.suss.com/en/products-solutions/coating-solutions/coating-and-developing/acs300-gen2"
+      ],
+      "orthographicHeightM": 6.857994988386902,
+      "model": "coat-develop/suss-acs300-gen2/models/suss-acs300-gen2.glb",
+      "images": {
+        "front": "coat-develop/suss-acs300-gen2/images/front.png",
+        "side": "coat-develop/suss-acs300-gen2/images/side.png",
+        "rear": "coat-develop/suss-acs300-gen2/images/rear.png",
+        "iso": "coat-develop/suss-acs300-gen2/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "asml-twinscan-nxe-3800e",
+      "name": "EUV 노광 스캐너",
+      "categoryId": "lithography",
+      "category": "정렬·노광",
+      "manufacturer": "ASML",
+      "modelName": "TWINSCAN NXE:3800E",
+      "referenceModel": "ASML · TWINSCAN NXE:3800E",
+      "description": "EUV 노광으로 감광막에 미세 패턴을 전사한다. 광원·진공 광학부·웨이퍼 스테이지의 개념 구조를 표현했다.",
+      "mode": "reference",
+      "published": "EUV · NA 0.33",
+      "dimensionsM": [
+        7.6725,
+        6.54969,
+        3.781
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.asml.com/en/products/euv-lithography-systems/twinscan-nxe-3800e"
+      ],
+      "orthographicHeightM": 10.748210827365698,
+      "model": "lithography/asml-twinscan-nxe-3800e/models/asml-twinscan-nxe-3800e.glb",
+      "images": {
+        "front": "lithography/asml-twinscan-nxe-3800e/images/front.png",
+        "side": "lithography/asml-twinscan-nxe-3800e/images/side.png",
+        "rear": "lithography/asml-twinscan-nxe-3800e/images/rear.png",
+        "iso": "lithography/asml-twinscan-nxe-3800e/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "nikon-nsr-s636e",
+      "name": "ArF 액침 스캐너",
+      "categoryId": "lithography",
+      "category": "정렬·노광",
+      "manufacturer": "Nikon",
+      "modelName": "NSR-S636E",
+      "referenceModel": "Nikon · NSR-S636E",
+      "description": "ArF 액침 노광으로 패턴을 전사한다. 투영부와 스테이지에 연결되는 웨이퍼 측 인터페이스를 표현했다.",
+      "mode": "reference",
+      "published": "ArF 액침 스캐너",
+      "dimensionsM": [
+        5.9085,
+        4.313,
+        3.4825
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.nikon.com/company/news/2023/1206_01/"
+      ],
+      "orthographicHeightM": 8.642549474168215,
+      "model": "lithography/nikon-nsr-s636e/models/nikon-nsr-s636e.glb",
+      "images": {
+        "front": "lithography/nikon-nsr-s636e/images/front.png",
+        "side": "lithography/nikon-nsr-s636e/images/side.png",
+        "rear": "lithography/nikon-nsr-s636e/images/rear.png",
+        "iso": "lithography/nikon-nsr-s636e/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "canon-fpa-6300es6a",
+      "name": "KrF 노광 스캐너",
+      "categoryId": "lithography",
+      "category": "정렬·노광",
+      "manufacturer": "Canon",
+      "modelName": "FPA-6300ES6a",
+      "referenceModel": "Canon · FPA-6300ES6a",
+      "description": "KrF 광원으로 레이어를 노광한다. 기존 액침·EUV 모델과 광원 유형을 구분했다.",
+      "mode": "reference",
+      "published": "KrF · 200mm 또는 300mm 사양 선택",
+      "dimensionsM": [
+        4.8015,
+        3.818,
+        3.184
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://global.canon/en/product/indtech/semicon/fpa6300es6a.html"
+      ],
+      "orthographicHeightM": 7.6139868788862985,
+      "model": "lithography/canon-fpa-6300es6a/models/canon-fpa-6300es6a.glb",
+      "images": {
+        "front": "lithography/canon-fpa-6300es6a/images/front.png",
+        "side": "lithography/canon-fpa-6300es6a/images/side.png",
+        "rear": "lithography/canon-fpa-6300es6a/images/rear.png",
+        "iso": "lithography/canon-fpa-6300es6a/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "amec-primo-d-rie",
+      "name": "유전체 식각 클러스터",
+      "categoryId": "etch",
+      "category": "패턴 식각",
+      "manufacturer": "AMEC",
+      "modelName": "Primo D-RIE",
+      "referenceModel": "AMEC · Primo D-RIE",
+      "description": "절연막을 플라즈마로 식각한다. 한 공정 모듈에서 두 반응 위치를 쓰는 구조를 나타냈다.",
+      "mode": "reference",
+      "published": "300mm · 최대 3개 듀얼 스테이션 모듈 구성",
+      "dimensionsM": [
+        5.742,
+        4.9125,
+        2.857
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://static.amec-inc.com/uploads/f64b9adcd24b400caf459c98af4e473e.pdf"
+      ],
+      "orthographicHeightM": 8.083098146453834,
+      "model": "etch/amec-primo-d-rie/models/amec-primo-d-rie.glb",
+      "images": {
+        "front": "etch/amec-primo-d-rie/images/front.png",
+        "side": "etch/amec-primo-d-rie/images/side.png",
+        "rear": "etch/amec-primo-d-rie/images/rear.png",
+        "iso": "etch/amec-primo-d-rie/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "applied-materials-centris-sym3-y",
+      "name": "플라즈마 식각 장비",
+      "categoryId": "etch",
+      "category": "패턴 식각",
+      "manufacturer": "Applied Materials",
+      "modelName": "Centris Sym3 Y",
+      "referenceModel": "Applied Materials · Centris Sym3 Y",
+      "description": "패턴을 전사하는 플라즈마 식각 플랫폼이다. 이송 허브와 공정 챔버를 구분해 표현했다.",
+      "mode": "reference",
+      "published": "Sym3 식각 챔버 기술",
+      "dimensionsM": [
+        5.9895,
+        4.566,
+        2.983
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.appliedmaterials.com/in/en/product-library/centris-sym3-y-etch.html"
+      ],
+      "orthographicHeightM": 8.169869771484143,
+      "model": "etch/applied-materials-centris-sym3-y/models/applied-materials-centris-sym3-y.glb",
+      "images": {
+        "front": "etch/applied-materials-centris-sym3-y/images/front.png",
+        "side": "etch/applied-materials-centris-sym3-y/images/side.png",
+        "rear": "etch/applied-materials-centris-sym3-y/images/rear.png",
+        "iso": "etch/applied-materials-centris-sym3-y/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "lam-kiyo",
+      "name": "도전체 식각 장비",
+      "categoryId": "etch",
+      "category": "패턴 식각",
+      "manufacturer": "Lam Research",
+      "modelName": "Kiyo",
+      "referenceModel": "Lam Research · Kiyo",
+      "description": "트랜지스터 등의 도전막 패턴을 전사하도록 정밀하게 식각한다.",
+      "mode": "reference",
+      "published": "도전체 식각 제품군",
+      "dimensionsM": [
+        5.1975,
+        4.665,
+        2.983
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.lamresearch.com/product/kiyo-product-family/"
+      ],
+      "orthographicHeightM": 7.91590243535626,
+      "model": "etch/lam-kiyo/models/lam-kiyo.glb",
+      "images": {
+        "front": "etch/lam-kiyo/images/front.png",
+        "side": "etch/lam-kiyo/images/side.png",
+        "rear": "etch/lam-kiyo/images/rear.png",
+        "iso": "etch/lam-kiyo/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "tel-tactras",
+      "name": "플라즈마 식각 시스템",
+      "categoryId": "etch",
+      "category": "패턴 식각",
+      "manufacturer": "Tokyo Electron",
+      "modelName": "Tactras",
+      "referenceModel": "Tokyo Electron · Tactras",
+      "description": "유전체·트렌치·고종횡비 홀 식각 등 다양한 식각 용도에 대응한다.",
+      "mode": "reference",
+      "published": "300mm 플라즈마 식각 플랫폼",
+      "dimensionsM": [
+        5.841,
+        4.863,
+        3.1006
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.tel.com/product/tactras.html"
+      ],
+      "orthographicHeightM": 8.401355783662291,
+      "model": "etch/tel-tactras/models/tel-tactras.glb",
+      "images": {
+        "front": "etch/tel-tactras/images/front.png",
+        "side": "etch/tel-tactras/images/side.png",
+        "rear": "etch/tel-tactras/images/rear.png",
+        "iso": "etch/tel-tactras/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "applied-materials-viista-900-3d",
+      "name": "이온 주입기 · SiC 사례",
+      "categoryId": "implant",
+      "category": "이온 주입",
+      "manufacturer": "Applied Materials",
+      "modelName": "VIISta 900 3D",
+      "referenceModel": "Applied Materials · VIISta 900 3D",
+      "description": "이온을 웨이퍼에 주입한다. SiC용 공개 구성의 가열 주입과 빔라인·종단부를 표현했다.",
+      "mode": "reference",
+      "published": "가열 주입 구성 · 150·200mm SiC 웨이퍼",
+      "dimensionsM": [
+        5.742,
+        3.487,
+        2.592
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.appliedmaterials.com/jp/ja/semiconductor/products/processes/implant/viista-900-3d.html"
+      ],
+      "orthographicHeightM": 7.0750319749604,
+      "model": "implant/applied-materials-viista-900-3d/models/applied-materials-viista-900-3d.glb",
+      "images": {
+        "front": "implant/applied-materials-viista-900-3d/images/front.png",
+        "side": "implant/applied-materials-viista-900-3d/images/side.png",
+        "rear": "implant/applied-materials-viista-900-3d/images/rear.png",
+        "iso": "implant/applied-materials-viista-900-3d/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "axcelis-purion-h",
+      "name": "고전류 이온 주입기",
+      "categoryId": "implant",
+      "category": "이온 주입",
+      "manufacturer": "Axcelis",
+      "modelName": "Purion H",
+      "referenceModel": "Axcelis · Purion H",
+      "description": "고전류 이온 빔으로 도펀트를 주입한다. 빔라인과 웨이퍼 처리 종단부를 별도로 표시했다.",
+      "mode": "reference",
+      "published": "고전류 주입 플랫폼",
+      "dimensionsM": [
+        6.3855,
+        3.6355,
+        2.6142
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.axcelis.com/products/purion-h-high-current-ion-implantation/"
+      ],
+      "orthographicHeightM": 7.417857547948129,
+      "model": "implant/axcelis-purion-h/models/axcelis-purion-h.glb",
+      "images": {
+        "front": "implant/axcelis-purion-h/images/front.png",
+        "side": "implant/axcelis-purion-h/images/side.png",
+        "rear": "implant/axcelis-purion-h/images/rear.png",
+        "iso": "implant/axcelis-purion-h/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "psk-supra",
+      "name": "건식 감광막 제거기",
+      "categoryId": "strip",
+      "category": "감광막·잔류물 제거",
+      "manufacturer": "PSK",
+      "modelName": "SUPRA 계열",
+      "referenceModel": "PSK · SUPRA 계열",
+      "description": "패턴 형성 뒤 남은 감광막을 건식으로 제거한다. 건식 공정 챔버와 이송부를 표현했다.",
+      "mode": "reference",
+      "published": "건식 스트립 제품군 · 세부 기종 치수 미확인",
+      "dimensionsM": [
+        4.7025,
+        3.6255,
+        2.773
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://sedex.org/public_html/information/information_directory_view.asp?board_seq=4052&page=20&search_category=&search_field=+&search_keyword="
+      ],
+      "orthographicHeightM": 6.9717562613846304,
+      "model": "strip/psk-supra/models/psk-supra.glb",
+      "images": {
+        "front": "strip/psk-supra/images/front.png",
+        "side": "strip/psk-supra/images/side.png",
+        "rear": "strip/psk-supra/images/rear.png",
+        "iso": "strip/psk-supra/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "applied-materials-vantage-radiance-plus",
+      "name": "급속 열처리 장비",
+      "categoryId": "thermal",
+      "category": "열처리",
+      "manufacturer": "Applied Materials",
+      "modelName": "Vantage Radiance Plus",
+      "referenceModel": "Applied Materials · Vantage Radiance Plus",
+      "description": "램프를 이용해 웨이퍼를 빠르게 가열한다. 램프 열원과 낱장 처리 공간을 표현했다.",
+      "mode": "reference",
+      "published": "램프식 RTP 기술",
+      "dimensionsM": [
+        4.6035,
+        3.3978,
+        2.689
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.appliedmaterials.com/us/en/product-library/vantage-radiance-plus-rtp.html"
+      ],
+      "orthographicHeightM": 6.72108145985992,
+      "model": "thermal/applied-materials-vantage-radiance-plus/models/applied-materials-vantage-radiance-plus.glb",
+      "images": {
+        "front": "thermal/applied-materials-vantage-radiance-plus/images/front.png",
+        "side": "thermal/applied-materials-vantage-radiance-plus/images/side.png",
+        "rear": "thermal/applied-materials-vantage-radiance-plus/images/rear.png",
+        "iso": "thermal/applied-materials-vantage-radiance-plus/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "kokusai-quixace-ii",
+      "name": "배치 열처리 장비",
+      "categoryId": "thermal",
+      "category": "열처리",
+      "manufacturer": "Kokusai Electric",
+      "modelName": "QUIXACE-II",
+      "referenceModel": "Kokusai Electric · QUIXACE-II",
+      "description": "여러 웨이퍼를 보트에 담아 한 배치로 처리한다. 보트와 수직 반응부를 표현했다.",
+      "mode": "reference",
+      "published": "300mm 배치 열처리 플랫폼",
+      "dimensionsM": [
+        4.563,
+        3.373,
+        3.7614
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.kokusai-electric.com/en/products"
+      ],
+      "orthographicHeightM": 8.032859890945652,
+      "model": "thermal/kokusai-quixace-ii/models/kokusai-quixace-ii.glb",
+      "images": {
+        "front": "thermal/kokusai-quixace-ii/images/front.png",
+        "side": "thermal/kokusai-quixace-ii/images/side.png",
+        "rear": "thermal/kokusai-quixace-ii/images/rear.png",
+        "iso": "thermal/kokusai-quixace-ii/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "applied-materials-endura-pvd",
+      "name": "물리기상증착 클러스터",
+      "categoryId": "metallization",
+      "category": "금속화·배선 충전",
+      "manufacturer": "Applied Materials",
+      "modelName": "Endura PVD",
+      "referenceModel": "Applied Materials · Endura PVD",
+      "description": "금속 박막을 형성한다. 제품 구성에 따라 프리클린·배리어·시드 모듈 등을 조합할 수 있다.",
+      "mode": "reference",
+      "published": "제품 구성에 따라 최대 9개 공정 챔버",
+      "dimensionsM": [
+        6.435,
+        5.3184,
+        3.0502
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.appliedmaterials.com/us/en/product-library/endura-pvd.html"
+      ],
+      "orthographicHeightM": 8.780519829562268,
+      "model": "metallization/applied-materials-endura-pvd/models/applied-materials-endura-pvd.glb",
+      "images": {
+        "front": "metallization/applied-materials-endura-pvd/images/front.png",
+        "side": "metallization/applied-materials-endura-pvd/images/side.png",
+        "rear": "metallization/applied-materials-endura-pvd/images/rear.png",
+        "iso": "metallization/applied-materials-endura-pvd/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "lam-altus",
+      "name": "텅스텐 증착 장비",
+      "categoryId": "metallization",
+      "category": "금속화·배선 충전",
+      "manufacturer": "Lam Research",
+      "modelName": "ALTUS",
+      "referenceModel": "Lam Research · ALTUS",
+      "description": "배선 콘택트나 좁은 구조에 텅스텐을 증착한다. 구리 습식 도금과 다른 금속 충전 경로에 배치한다.",
+      "mode": "reference",
+      "published": "텅스텐 증착 제품군",
+      "dimensionsM": [
+        5.742,
+        4.5858,
+        2.9074
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.lamresearch.com/products/our-processes/deposition/"
+      ],
+      "orthographicHeightM": 7.990823128402014,
+      "model": "metallization/lam-altus/models/lam-altus.glb",
+      "images": {
+        "front": "metallization/lam-altus/images/front.png",
+        "side": "metallization/lam-altus/images/side.png",
+        "rear": "metallization/lam-altus/images/rear.png",
+        "iso": "metallization/lam-altus/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "lam-sabre",
+      "name": "구리 전해도금 장비",
+      "categoryId": "metallization",
+      "category": "금속화·배선 충전",
+      "manufacturer": "Lam Research",
+      "modelName": "SABRE",
+      "referenceModel": "Lam Research · SABRE",
+      "description": "구리를 전해석출시켜 배선 홈과 비아를 채운다. 도금 셀과 용액 처리부가 있는 습식 장비로 표현했다.",
+      "mode": "reference",
+      "published": "구리 ECD 방식",
+      "dimensionsM": [
+        5.7568,
+        3.761,
+        2.9874
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.lamresearch.com/product/sabre/"
+      ],
+      "orthographicHeightM": 7.704502467792417,
+      "model": "metallization/lam-sabre/models/lam-sabre.glb",
+      "images": {
+        "front": "metallization/lam-sabre/images/front.png",
+        "side": "metallization/lam-sabre/images/side.png",
+        "rear": "metallization/lam-sabre/images/rear.png",
+        "iso": "metallization/lam-sabre/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "applied-materials-reflexion-lk-prime",
+      "name": "CMP·후세정 통합 장비",
+      "categoryId": "cmp",
+      "category": "평탄화·후세정",
+      "manufacturer": "Applied Materials",
+      "modelName": "Reflexion LK Prime",
+      "referenceModel": "Applied Materials · Reflexion LK Prime",
+      "description": "여러 연마 단계 뒤에 세정과 건조를 잇는다. 연마 패드와 웨이퍼 헤드를 볼 수 있게 표현했다.",
+      "mode": "reference",
+      "published": "연마 패드 4개 · 연마 헤드 6개 구성",
+      "dimensionsM": [
+        6.7478,
+        3.90875,
+        2.824
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.appliedmaterials.com/in/en/product-library/reflexion-lk-prime-cmp.html"
+      ],
+      "orthographicHeightM": 7.947306491537475,
+      "model": "cmp/applied-materials-reflexion-lk-prime/models/applied-materials-reflexion-lk-prime.glb",
+      "images": {
+        "front": "cmp/applied-materials-reflexion-lk-prime/images/front.png",
+        "side": "cmp/applied-materials-reflexion-lk-prime/images/side.png",
+        "rear": "cmp/applied-materials-reflexion-lk-prime/images/rear.png",
+        "iso": "cmp/applied-materials-reflexion-lk-prime/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "ebara-frex300xa",
+      "name": "웨이퍼 평탄화 장비",
+      "categoryId": "cmp",
+      "category": "평탄화·후세정",
+      "manufacturer": "Ebara",
+      "modelName": "F-REX300XA",
+      "referenceModel": "Ebara · F-REX300XA",
+      "description": "연마 테이블과 헤드로 웨이퍼를 평탄화하고, 후속 다단계 세정을 연결한다.",
+      "mode": "reference",
+      "published": "300mm CMP · 듀얼 모듈",
+      "dimensionsM": [
+        5.31085,
+        3.6428,
+        2.7552
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://ebara.com/global-en/products/FREX300XA/"
+      ],
+      "orthographicHeightM": 7.188952941367851,
+      "model": "cmp/ebara-frex300xa/models/ebara-frex300xa.glb",
+      "images": {
+        "front": "cmp/ebara-frex300xa/images/front.png",
+        "side": "cmp/ebara-frex300xa/images/side.png",
+        "rear": "cmp/ebara-frex300xa/images/rear.png",
+        "iso": "cmp/ebara-frex300xa/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "kla-39xx",
+      "name": "패턴 웨이퍼 결함 검사기",
+      "categoryId": "inspection",
+      "category": "공정 중 검사·계측",
+      "manufacturer": "KLA",
+      "modelName": "39xx Series",
+      "referenceModel": "KLA · 39xx Series",
+      "description": "광대역 플라즈마를 이용한 광학 검사로 패턴 웨이퍼의 결함을 검출한다.",
+      "mode": "reference",
+      "published": "광대역 플라즈마(BBP) 광학 검사 계열",
+      "dimensionsM": [
+        3.564,
+        2.867,
+        2.722
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://bbp.kla.com/"
+      ],
+      "orthographicHeightM": 6.115061414370274,
+      "model": "inspection/kla-39xx/models/kla-39xx.glb",
+      "images": {
+        "front": "inspection/kla-39xx/images/front.png",
+        "side": "inspection/kla-39xx/images/side.png",
+        "rear": "inspection/kla-39xx/images/rear.png",
+        "iso": "inspection/kla-39xx/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "nova-prism",
+      "name": "광학 CD 계측 장비",
+      "categoryId": "inspection",
+      "category": "공정 중 검사·계측",
+      "manufacturer": "Nova",
+      "modelName": "PRISM",
+      "referenceModel": "Nova · PRISM",
+      "description": "반사·간섭 등 광학 신호로 미세 구조의 치수와 형상을 계측한다.",
+      "mode": "reference",
+      "published": "분광 타원계·반사계·간섭계 결합",
+      "dimensionsM": [
+        3.1185,
+        2.6888,
+        2.5605
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.novami.com/nova-product/prism/"
+      ],
+      "orthographicHeightM": 5.65945221850413,
+      "model": "inspection/nova-prism/models/nova-prism.glb",
+      "images": {
+        "front": "inspection/nova-prism/images/front.png",
+        "side": "inspection/nova-prism/images/side.png",
+        "rear": "inspection/nova-prism/images/rear.png",
+        "iso": "inspection/nova-prism/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "onto-dragonfly-g3",
+      "name": "첨단 패키징 2D·3D 검사기",
+      "categoryId": "inspection",
+      "category": "공정 중 검사·계측",
+      "manufacturer": "Onto Innovation",
+      "modelName": "Dragonfly G3",
+      "referenceModel": "Onto Innovation · Dragonfly G3",
+      "description": "범프·재배선층 등 첨단 패키징 구조의 결함과 높이를 광학적으로 확인한다.",
+      "mode": "reference",
+      "published": "2D·3D 검사 및 계측 플랫폼",
+      "dimensionsM": [
+        3.7125,
+        2.7185,
+        2.671
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://investors.ontoinnovation.com/news/news-details/2024/Onto-Innovation-Debuts-Sub-surface-Defect-Inspection-for-Advanced-Packaging/default.aspx"
+      ],
+      "orthographicHeightM": 6.037275741159271,
+      "model": "inspection/onto-dragonfly-g3/models/onto-dragonfly-g3.glb",
+      "images": {
+        "front": "inspection/onto-dragonfly-g3/images/front.png",
+        "side": "inspection/onto-dragonfly-g3/images/side.png",
+        "rear": "inspection/onto-dragonfly-g3/images/rear.png",
+        "iso": "inspection/onto-dragonfly-g3/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "accretech-fp3000w",
+      "name": "웨이퍼 프로버",
+      "categoryId": "wafer-test",
+      "category": "웨이퍼 프로브 검사",
+      "manufacturer": "ACCRETECH",
+      "modelName": "FP3000W",
+      "referenceModel": "ACCRETECH · FP3000W",
+      "description": "프레임에 고정한 웨이퍼에서 다이를 정렬해 테스트 헤드에 연결한다.",
+      "mode": "reference",
+      "published": "300mm 프레임 웨이퍼 · 힌지형 테스트 헤드 매니퓰레이터",
+      "dimensionsM": [
+        2.8215,
+        2.669,
+        2.943
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.accretech.com/en/product/semicon/semi/probe_semi/fp3000.html"
+      ],
+      "orthographicHeightM": 6.014744474953252,
+      "model": "wafer-test/accretech-fp3000w/models/accretech-fp3000w.glb",
+      "images": {
+        "front": "wafer-test/accretech-fp3000w/images/front.png",
+        "side": "wafer-test/accretech-fp3000w/images/side.png",
+        "rear": "wafer-test/accretech-fp3000w/images/rear.png",
+        "iso": "wafer-test/accretech-fp3000w/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "evg-gemini-fb",
+      "name": "웨이퍼 직접 접합 장비",
+      "categoryId": "bonding",
+      "category": "웨이퍼 접합",
+      "manufacturer": "EV Group",
+      "modelName": "GEMINI FB",
+      "referenceModel": "EV Group · GEMINI FB",
+      "description": "접합할 웨이퍼를 각각 준비하고 정렬한 뒤 융합 접합한다.",
+      "mode": "reference",
+      "published": "200·300mm · 자동 정렬·접합 플랫폼",
+      "dimensionsM": [
+        5.7915,
+        3.956,
+        2.9515
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.evgroup.com/products/bonding/fusion-and-hybrid-bonding-systems/gemini-fb"
+      ],
+      "orthographicHeightM": 7.765503766770875,
+      "model": "bonding/evg-gemini-fb/models/evg-gemini-fb.glb",
+      "images": {
+        "front": "bonding/evg-gemini-fb/images/front.png",
+        "side": "bonding/evg-gemini-fb/images/side.png",
+        "rear": "bonding/evg-gemini-fb/images/rear.png",
+        "iso": "bonding/evg-gemini-fb/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "disco-dfd6363",
+      "name": "웨이퍼 다이싱 소",
+      "categoryId": "dicing",
+      "category": "웨이퍼 절단",
+      "manufacturer": "DISCO",
+      "modelName": "DFD6363",
+      "referenceModel": "DISCO · DFD6363",
+      "description": "프레임 위 웨이퍼를 블레이드로 절단해 다이를 분리한다. 스핀들과 절단용 스테이지를 표현했다.",
+      "mode": "reference",
+      "published": "최대 300mm 웨이퍼 · 블레이드 절단",
+      "dimensionsM": [
+        2.7225,
+        2.768,
+        2.569
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.disco.co.jp/eg/products/dicer/dfd6363.html"
+      ],
+      "orthographicHeightM": 5.557190576351644,
+      "model": "dicing/disco-dfd6363/models/disco-dfd6363.glb",
+      "images": {
+        "front": "dicing/disco-dfd6363/images/front.png",
+        "side": "dicing/disco-dfd6363/images/side.png",
+        "rear": "dicing/disco-dfd6363/images/rear.png",
+        "iso": "dicing/disco-dfd6363/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "besi-datacon-8800-chameo-ultra-plus-ac",
+      "name": "다이 하이브리드 접합 장비",
+      "categoryId": "assembly",
+      "category": "다이 실장·패키징",
+      "manufacturer": "Besi",
+      "modelName": "Datacon 8800 CHAMEO ultra plus AC",
+      "referenceModel": "Besi · Datacon 8800 CHAMEO ultra plus AC",
+      "description": "개별 다이를 정밀하게 정렬한 뒤 접합한다. 다이 공급부와 픽앤플레이스 헤드를 표현했다.",
+      "mode": "reference",
+      "published": "첨단 패키징용 하이브리드 접합 플랫폼",
+      "dimensionsM": [
+        4.3065,
+        3.1385,
+        2.688
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.besi.com/products-technology/product-details/product/datacon-8800-chameo-ultra-plus-ac/"
+      ],
+      "orthographicHeightM": 6.483775347669214,
+      "model": "assembly/besi-datacon-8800-chameo-ultra-plus-ac/models/besi-datacon-8800-chameo-ultra-plus-ac.glb",
+      "images": {
+        "front": "assembly/besi-datacon-8800-chameo-ultra-plus-ac/images/front.png",
+        "side": "assembly/besi-datacon-8800-chameo-ultra-plus-ac/images/side.png",
+        "rear": "assembly/besi-datacon-8800-chameo-ultra-plus-ac/images/rear.png",
+        "iso": "assembly/besi-datacon-8800-chameo-ultra-plus-ac/images/iso.png"
+      },
+      "animations": []
+    },
+    {
+      "id": "advantest-v93000-exa-scale",
+      "name": "SoC 자동 테스트 장비",
+      "categoryId": "final-test",
+      "category": "패키지 최종 검사",
+      "manufacturer": "Advantest",
+      "modelName": "V93000 EXA Scale",
+      "referenceModel": "Advantest · V93000 EXA Scale",
+      "description": "SoC를 전기적으로 검사한다. 테스트 헤드와 계측 본체가 핸들러 또는 프로버와 연결되는 모습을 표현했다.",
+      "mode": "reference",
+      "published": "모듈식 SoC 테스트 플랫폼 · 웨이퍼 검사 및 최종 검사 구성",
+      "dimensionsM": [
+        3.564,
+        2.594,
+        2.875
+      ],
+      "dimensionBasis": "공개 기능을 참고한 개념 모델의 외곽입니다. 설치 치수, 패널 배치와 정비 공간은 모델 가정입니다.",
+      "sources": [
+        "https://www.advantest.com/en/products/semiconductor-test-system/soc/v93000/"
+      ],
+      "orthographicHeightM": 6.1763990318111555,
+      "model": "final-test/advantest-v93000-exa-scale/models/advantest-v93000-exa-scale.glb",
+      "images": {
+        "front": "final-test/advantest-v93000-exa-scale/images/front.png",
+        "side": "final-test/advantest-v93000-exa-scale/images/side.png",
+        "rear": "final-test/advantest-v93000-exa-scale/images/rear.png",
+        "iso": "final-test/advantest-v93000-exa-scale/images/iso.png"
+      },
+      "animations": []
+    }
+  ]
+}

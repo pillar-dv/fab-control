@@ -1,0 +1,68 @@
+import assert from 'node:assert/strict';
+import path from 'node:path';
+
+export async function verifyLineEditor(page,output){
+  const action=id=>page.locator('[data-action="'+id+'"]'),field=id=>page.locator('[data-ui="'+id+'"]');
+  const editor=page.getByRole('dialog',{name:'라인 편집'}),cmd=id=>editor.locator('[data-cmd="'+id+'"]');
+  const machine=id=>editor.locator('[data-machine="'+id+'"]');
+  const control=id=>editor.locator('[data-field="'+id+'"]');
+  const open=async()=>{await action('edit').click();await editor.waitFor();};
+  const finish=async()=>{
+    const done=await action('advance').evaluate(b=>{let count=0;while(!b.disabled&&count++<250)b.click();return b.disabled;});
+    assert.equal(done,true);assert.equal(await field('status').innerText(),'운전 완료');
+  };
+  await page.locator('[data-camera="iso"]').click();
+  if(await action('dimensions').getAttribute('aria-pressed')==='true')await action('dimensions').click();
+  await action('toggle').click();await open();
+  assert.equal(await field('status').innerText(),'운전 중');
+  await machine('etch_strip').click();await cmd('clone').click();
+  await editor.getByLabel('5단계 처리 장비').selectOption('etch_strip-2');
+  await page.screenshot({path:path.join(output,'line-editor.png')});
+  await cmd('apply').click();
+  assert.equal(await field('counts').innerText(),'6대 / 5곳');
+  await field('viewport').getByText(/^ETCH-02/).waitFor();
+  assert.match(await field('steps').innerText(),/ETCH-02/);
+  await finish();
+  assert.match(await field('events').innerText(),/절연막 식각 완료 · ETCH-02/);
+  await action('reset').click();
+  await action('lab').click();
+  await page.locator('[data-lab="steps"]').selectOption('4');
+  const pausedTime=await field('clock').innerText();
+  await open();await machine('etch_strip-2').click();await cmd('remove').click();
+  assert.ok(await cmd('apply').isDisabled());assert.match(await editor.locator('.edit-impact').innerText(),/FOUP-01.*ETCH-02.*챔버/);
+  await cmd('cancel').click();assert.equal(await field('clock').innerText(),pausedTime);
+  await open();await machine('deposition').click();await control('kind').selectOption('deposition');await cmd('replace').click();
+  const bay=await editor.locator('.floor-map').boundingBox(),stocker=await machine('stocker').boundingBox();
+  const x=stocker.x+stocker.width/2,z=stocker.y+stocker.height/2;
+  await page.mouse.move(x,z);await page.mouse.down();
+  await page.mouse.move(x+bay.width/36,z,{steps:6});
+  await page.waitForFunction(()=>window.draftFrame?.machines?.stocker.x===5.5);
+  await page.mouse.up();
+  await control('fleet').fill('5');await control('fleet').press('Tab');
+  assert.match(await editor.locator('.machine-fields').innerText(),/X 5 \/ Z 7.5/);
+  await cmd('remove').click();assert.ok(await cmd('apply').isDisabled());assert.match(await editor.locator('.edit-checks').innerText(),/스토커/);
+  await cmd('undo').click();
+  await editor.getByLabel('동측 레일').uncheck();assert.ok(await cmd('apply').isDisabled());await cmd('undo').click();
+  await editor.locator('[data-cmd="up"][data-index="2"]').click();assert.match(await editor.locator('.edit-checks').innerText(),/입력 단면/);await cmd('undo').click();
+  await control('action').selectOption('deposit');await cmd('append').click();
+  assert.equal(await editor.locator('[data-step]').count(),7);
+  await editor.locator('[data-cmd="drop"][data-index="6"]').click();assert.equal(await editor.locator('[data-step]').count(),6);
+  await cmd('apply').click();await editor.waitFor({state:'hidden'});
+  assert.equal(await field('clock').innerText(),'00:00:00');
+  assert.match(await field('fleet').innerText(),/\/ 5 대/);
+  await page.locator('[data-camera="iso"]').click();await field('viewport').getByText(/^CVD-02/).waitFor();
+  await finish();assert.match(await field('events').innerText(),/스토커 복귀/);
+  await page.locator('[data-product="cpu"]').click();assert.equal(await field('counts').innerText(),'9대 / 8곳');
+  await page.locator('[data-product="baseline"]').click();assert.equal(await field('counts').innerText(),'6대 / 5곳');
+  await open();await machine('stocker').click();assert.equal(await control('x').inputValue(),'5.5');await cmd('cancel').click();
+  // Apply a shorter recipe, exercise the lab without etch, then finish both lots.
+  await open();
+  for(let i=5;i>=1;i--)await editor.locator('[data-cmd="drop"][data-index="'+i+'"]').click();
+  await control('action').selectOption('deposit');await cmd('append').click();
+  await editor.locator('[data-cmd="up"][data-index="1"]').click();
+  await cmd('apply').click();
+  assert.equal(await field('stepCount').innerText(),'0 / 2');
+  await action('lab').click();assert.ok(await page.locator('[data-run="standard"]').isDisabled());
+  await page.locator('[data-camera="iso"]').click();await finish();
+  assert.equal(await field('stepCount').innerText(),'2 / 2');
+}
